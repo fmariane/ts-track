@@ -1,16 +1,16 @@
 import promptSync from "prompt-sync";
 const prompt = promptSync();
 let students = ["Doug", "Mariane", "Mary", "Rohit", "Sharin"];
-let subjects = ["CS101", "DS0101", "MAT101", "STA101", "CYB101"];
+let subjects = ["CS101", "DS101", "MAT101", "STA101", "CYB101"];
 let grades = [100, 89, 70, 101, 69.9];
-let options = ["1 - See all students\n",
-    "2 - Which Student is enrolled to which subject\n",
-    "3 - Check if a student is approved\n"];
+let options = ["1 - See all students",
+    "2 - Which Student is enrolled to which subject",
+    "3 - Check if a student is approved"];
 //welcome message
-console.log("####    WELCOME TO THE STUDENT MANAGEMNT SYSTEM   #");
+console.log("####    WELCOME TO THE STUDENT MANAGEMENT SYSTEM   ####");
 console.log("Available options: ");
 console.log(options);
-while (true) {
+menu: while (true) {
     let option = parseInt(prompt("Type the option number: "), 10);
     if (option == 0) {
         break;
@@ -18,16 +18,22 @@ while (true) {
     switch (option) {
         case 1:
             printStudentsList();
+            break;
         case 2:
             const flag = findSubject(subjects, students);
-            console.log(flag);
+            if (flag == false) {
+                console.log("Subject is not registered at this semester");
+            }
+            break;
         case 3:
+            //const student  = prompt("Which student: ");
             const grade = 70;
             const appr = approved(grade);
             console.log(appr);
+            break;
         default:
             console.log("Invalid option, closing system");
-            break;
+            break menu;
     }
 }
 function printStudentsList() {
@@ -37,6 +43,11 @@ function printStudentsList() {
 }
 function findSubject(subjects, students) {
     const subject = prompt("Which subject to match: ");
+    let STUDENT = {
+        name: "",
+        subject: "",
+        grade: 0,
+    };
     let i = 0;
     while (i < students.length) {
         if (subjects[i] === subject) {
